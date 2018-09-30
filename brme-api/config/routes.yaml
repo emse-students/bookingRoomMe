@@ -1,0 +1,19 @@
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+
+parse_excel:
+    path: /api/parse_excel/{id}
+    controller: App\Controller\ExcelController::parseExcel
+
+set_new_pwd:
+    path: /api/setnewpwd
+    controller: App\Controller\ExcelController::newUsers
+
+clean:
+    path: /api/clean
+    controller: App\Controller\ExcelController::clean
+
+api_login_check:
+    path: /api/login
