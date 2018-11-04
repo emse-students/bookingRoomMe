@@ -23,14 +23,14 @@ export class UploadExcel implements Action {
 export class UploadExcelSuccess implements Action {
   readonly type = ExcelAdminSettingsActionTypes.UploadExcelSuccess;
 
-  constructor(public payload: ExcelDTO) {}
+  constructor(public payload: {excel: ExcelDTO, add: number}) {}
 }
 
 
 export class ParseExcel implements Action {
   readonly type = ExcelAdminSettingsActionTypes.ParseExcel;
 
-  constructor(public payload: number) {}
+  constructor(public payload: {id: number, add: number}) {}
 }
 
 export class ParseExcelSuccess implements Action {

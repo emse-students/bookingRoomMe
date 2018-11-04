@@ -21,12 +21,14 @@ export class ExcelFormComponent implements OnInit {
 
   form: FormGroup = this.fb.group({
     file: [null, [this.fileValidator(), Validators.required]],
-    filename: ['']
+    filename: [''],
+    suppr: [false],
   });
 
 
   get file() { return this.form.get('file'); }
   get filename() { return this.form.get('filename'); }
+  get suppr() { return this.form.get('suppr'); }
 
 
   constructor(private fb: FormBuilder,
@@ -38,6 +40,11 @@ export class ExcelFormComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
+      if (this.suppr.value) {
+        this.suppr.setValue(1);
+      } else {
+        this.suppr.setValue(0);
+      }
       this.submitted.emit(this.form.value);
     }
   }

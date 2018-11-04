@@ -12,6 +12,7 @@ import {RoomLayoutActionsUnion, RoomLayoutActionTypes} from '../actions/layer.ac
 export interface State {
   quarters: number[];
   pending: boolean;
+  currentBooking: number;
 }
 
 
@@ -22,7 +23,8 @@ export interface State {
  */
 export const initialState: State = {
   quarters: [0, 0, 0, 0, 0, 0, 0],
-  pending: false
+  pending: false,
+  currentBooking: 0
 };
 
 export function reducer(
@@ -37,17 +39,75 @@ export function reducer(
         pending: true
       };
 
+    case ReservationActionTypes.RoomReservationsFailure:
+      if (state.currentBooking <= 1) {
+        return {
+          ...state,
+          pending: false,
+          currentBooking: 0
+        };
+      } else {
+        return {
+          ...state,
+          currentBooking: state.currentBooking - 1
+        };
+      }
+
     case ReservationActionTypes.GetRoomReservationsSuccess:
+      if (state.currentBooking <= 1) {
+        return {
+          ...state,
+          pending: false,
+          currentBooking: 0
+        };
+      } else {
+        return {
+          ...state,
+          currentBooking: state.currentBooking - 1
+        };
+      }
+
+    case ReservationActionTypes.PostRoomReservation:
       return {
         ...state,
-        pending: false
+        pending: true,
+        currentBooking: state.currentBooking + 1
       };
 
-    case ReservationActionTypes.RoomReservationsFailure:
+    case ReservationActionTypes.PostRoomReservationSuccess:
+      if (state.currentBooking <= 1) {
+        return {
+          ...state,
+          pending: false,
+          currentBooking: 0
+        };
+      } else {
+        return {
+          ...state,
+          currentBooking: state.currentBooking - 1
+        };
+      }
+
+    case ReservationActionTypes.DeleteRoomReservation:
       return {
         ...state,
-        pending: false
+        pending: true,
+        currentBooking: state.currentBooking + 1
       };
+
+    case ReservationActionTypes.DeleteRoomReservationSuccess:
+      if (state.currentBooking <= 1) {
+        return {
+          ...state,
+          pending: false,
+          currentBooking: 0
+        };
+      } else {
+        return {
+          ...state,
+          currentBooking: state.currentBooking - 1
+        };
+      }
 
     case ReservationActionTypes.SetDate:
       return {

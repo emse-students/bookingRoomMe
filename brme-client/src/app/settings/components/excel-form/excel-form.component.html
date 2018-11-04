@@ -11,6 +11,8 @@
         {{ errorMessage }}
       </p>
 
+      <mat-slide-toggle color="primary" formControlName="suppr">Supprimer les comptes non présents dans l'Excel</mat-slide-toggle>
+
       <p class="loginButtons">
         <button class="ml-2" type="submit" mat-raised-button color="accent" [disabled]="form.invalid">Mettre à jour</button>
       </p>

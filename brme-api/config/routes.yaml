@@ -4,7 +4,7 @@ index:
 
 
 parse_excel:
-    path: /api/parse_excel/{id}
+    path: /api/parse_excel/{id}/{add}
     controller: App\Controller\ExcelController::parseExcel
 
 set_new_pwd:

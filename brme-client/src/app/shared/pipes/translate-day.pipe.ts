@@ -4,6 +4,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class TranslateDayPipe implements PipeTransform {
   transform(value: string): string {
     const parsed = value.split(' ');
+    if (parsed.length === 1) { parsed.push(''); }
     switch (parsed[0]) {
       case 'Monday':
         return 'Lundi ' + parsed[1];

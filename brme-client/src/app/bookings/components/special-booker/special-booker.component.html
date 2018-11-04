@@ -1,3 +1,71 @@
-<p>
-  special-booker works!
-</p>
+<h2>Réservations longues ou répétitives</h2>
+<div *ngIf="!pending">
+  De :<br>
+  <mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Sélectionnez une date de début" [value]="startDate" (dateChange)="setStartDate($event.value)">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  ( {{startDate | date: 'EEEE' | translateDay}})
+  <br>
+  <mat-form-field>
+    <mat-select placeholder="Heures" (selectionChange)="startDate.setHours($event.value); refresh()" [(value)]="startHours">
+      <mat-option *ngFor="let i of hours" [value]="i">
+        {{i}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Minutes" (selectionChange)="startDate.setMinutes($event.value); refresh()" [(value)]="startMins">
+      <mat-option *ngFor="let i of [0,30]" [value]="i">
+        {{i}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br>
+  A :<br>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker2" placeholder="Sélectionnez une date de fin" [value]="endDate" (dateChange)="setEndDate($event.value);">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+  ( {{endDate | date: 'EEEE' | translateDay}})
+  <br>
+  <mat-form-field>
+    <mat-select placeholder="Heures" (selectionChange)="endDate.setHours($event.value); refresh()" [(value)]="endHours">
+      <mat-option *ngFor="let i of hours" [value]="i">
+        {{i}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Minutes" (selectionChange)="endDate.setMinutes($event.value); refresh()" [(value)]="endMins">
+      <mat-option *ngFor="let i of [0,30]" [value]="i">
+        {{i}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br *ngIf="endDate.getTime() - startDate.getTime() < 30">
+  <mat-error *ngIf="endDate.getTime() - startDate.getTime() < 30">Le créneau doit être d'au moins 30 minutes</mat-error><br>
+
+  <mat-slide-toggle color="primary" [(ngModel)]="recurrent">Répéter</mat-slide-toggle>
+
+  <div class="row" *ngIf="recurrent">
+    <ng-container *ngFor="let week of recurrentWeeks">
+      <button mat-stroked-button *ngIf="!week.booked" (click)="week.booked=true;">
+        {{week.start | date:'d M' | translateMonth}} - {{week.end | date:'d M' | translateMonth}}
+      </button>
+      <button mat-raised-button color="primary" *ngIf="week.booked" (click)="week.booked=false">
+        {{week.start | date:'d M' | translateMonth}} - {{week.end | date:'d M' | translateMonth}}
+      </button>
+    </ng-container>
+  </div>
+
+  <br>
+  <button mat-stroked-button color="primary" *ngIf="endDate.getTime() - startDate.getTime() >= 30" (click)="book()">Réserver</button>
+  <button mat-stroked-button color="primary" disabled *ngIf="endDate.getTime() - startDate.getTime() < 30">Réserver</button>
+</div>
+<div class="row justify-content-center" *ngIf="pending"> <mat-spinner [diameter]="60"></mat-spinner></div>
+<br>

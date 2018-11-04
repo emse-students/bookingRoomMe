@@ -17,8 +17,9 @@ export class ExcelService {
     return this.http.post<ExcelDTO>(url,  formData);
   }
 
-  public parse(id: number): Observable<any> {
-    const url = `${environment.upiUrl}/parse_excel/${id}`;
+  public parse(id: number, add: number): Observable<any> {
+    console.log(id);
+    const url = `${environment.upiUrl}/parse_excel/${id}/${add}`;
     return this.http.get(url).pipe(map((array: string) => JSON.parse(array)));
   }
 

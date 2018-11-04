@@ -19,13 +19,18 @@
               [quartersState]="day.quarter"
               [currentUser]="currentUser$ | async"
               [currentRoom]="currentRoom$ | async"
-              [reservations]="day.reservations" (switchQuarterState)="switchQuarterState($event, i)">
+              [reservations]="day.reservations"
+              (switchQuarterState)="switchQuarterState($event, i)">
     </brme-day>
   </div>
   <brme-special-booker *ngIf="(currentUser$ | async).role!==null"
                        [currentUser]="currentUser$ | async"
                        [currentRoom]="currentRoom$ | async"
-                       [currentDate]="currentDate$ | async">
+                       [currentDate]="currentDate$ | async"
+                       [pending]="pending$ | async">
   </brme-special-booker>
+  <div class="alert alert-danger" *ngIf="error$ | async">
+    {{error$ | async}}
+  </div>
   <div class="alert alert-dark" *ngIf="(currentRoom$ | async).description">{{(currentRoom$ | async).description}}</div>
 </div>

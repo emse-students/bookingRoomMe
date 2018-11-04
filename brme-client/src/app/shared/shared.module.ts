@@ -27,6 +27,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {RouterModule} from '@angular/router';
 import {HourPipe} from './pipes/hour.pipe';
 import {TranslateDayPipe} from './pipes/translate-day.pipe';
+import {TranslateMonthPipe} from './pipes/translate-month.pipe';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import {TranslateDayPipe} from './pipes/translate-day.pipe';
   ],
   declarations: [
     HourPipe,
-    TranslateDayPipe
+    TranslateDayPipe,
+    TranslateMonthPipe
   ],
   exports: [
     CommonModule,
@@ -99,7 +101,8 @@ import {TranslateDayPipe} from './pipes/translate-day.pipe';
     AngularSvgIconModule,
 
     HourPipe,
-    TranslateDayPipe
+    TranslateDayPipe,
+    TranslateMonthPipe
   ]
 })
 export class SharedModule {}

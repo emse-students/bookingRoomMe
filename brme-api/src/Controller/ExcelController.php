@@ -27,7 +27,7 @@ class ExcelController extends Controller
                         'U', 'V', 'W', 'X', 'Y',
                         'Z'];
 
-    public function parseExcel($id, LoggerInterface $logger)
+    public function parseExcel($id, $add, LoggerInterface $logger)
     {
         set_time_limit(600);
         $mediaObject = $this->getDoctrine()
@@ -129,11 +129,14 @@ class ExcelController extends Controller
             }
         }
 
-        foreach ($users as $u) {
-            $user = $repo->findOneBy(['id' => $u['id']]);
-            $entityManager->remove($user);
+        if ($add == 1){
+            foreach ($users as $u) {
+                $user = $repo->findOneBy(['id' => $u['id']]);
+                $entityManager->remove($user);
+            }
+            $entityManager->flush();
         }
-        $entityManager->flush();
+
 //
 //        //$debug = var_export($array,true);
         $json = json_encode($newusers,JSON_UNESCAPED_UNICODE);
