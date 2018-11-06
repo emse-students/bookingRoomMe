@@ -23,7 +23,7 @@
               (switchQuarterState)="switchQuarterState($event, i)">
     </brme-day>
   </div>
-  <brme-special-booker *ngIf="(currentUser$ | async).role!==null"
+  <brme-special-booker *ngIf="(currentUser$ | async)!==null && (currentUser$ | async).role!==null"
                        [currentUser]="currentUser$ | async"
                        [currentRoom]="currentRoom$ | async"
                        [currentDate]="currentDate$ | async"
