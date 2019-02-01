@@ -9,7 +9,6 @@ import {SESS_KEY} from '../../auth/actions/auth.actions';
 import {LocalStorageService} from '../services/local-storage.service';
 import {Session} from '../../auth/models/auth.model';
 import {GetRoom} from '../actions/layout.actions';
-import {flatMap} from 'rxjs/operators';
 import {Room} from '../../bookings/models/room.model';
 import {UrlSafeStringService} from '../services/url-safe-string.service';
 
