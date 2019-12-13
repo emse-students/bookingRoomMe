@@ -34,7 +34,7 @@
     "engine.io-client": "^3.2.1",
     "jquery": "^3.3.1",
     "ngrx-store-freeze": "^0.2.4",
-    "npm": "^6.3.0",
+    "npm": "^6.13.4",
     "popper.js": "^1.14.4",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
